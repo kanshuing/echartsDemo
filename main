@@ -1,0 +1,41 @@
+  var dom = document.getElementById("container");
+            var myChart = echarts.init(dom);
+            $.getJSON('./china.json', (res)=>{
+                echarts.registerMap("learn", res); //注册地图
+                let option={
+                    geo:{
+                        show: true,
+                        map: "learn",
+                        aspectScale: 1.2,
+                        roam:true
+                    },
+                    series:[
+                        {
+                            key: "seriesScatterLabel",
+                            name: "目标点",
+                            type: "scatter",
+                            symbol: "./dw.png",
+                            symbolSize: [150, 50],
+                            symbolOffset: [55, -40],
+                            coordinateSystem: "geo",
+                            label: {
+                                normal: {
+                                    position: "insideTopLeft",
+                                    show: true,
+                                    color: "#ffffff",
+                                    fontSize: 18,
+                                }
+                            },
+                            data:[
+                                {
+                                    name:'济南',
+                                    value: [117.312,36.688,1851]
+                                }
+                            ]
+                        }
+                    ]
+                }
+                if (option && typeof option === "object") {
+                    myChart.setOption(option, true);
+                }
+            }) 
